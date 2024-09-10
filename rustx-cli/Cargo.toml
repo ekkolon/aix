@@ -1,0 +1,18 @@
+[package]
+name = "rustx"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rustx"
+path = "src/bin/rustx.rs"
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+thiserror.workspace = true
+
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+anyhow = "1"
