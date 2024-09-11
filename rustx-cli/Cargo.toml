@@ -11,6 +11,13 @@ path = "src/bin/rustx.rs"
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 thiserror.workspace = true
+dirs = "5.0"
+tempdir = "0.3"
+async-recursion = "1"
+tokio = {version = "1", features = ["fs", "macros", "rt-multi-thread"]}
+env_logger = "0.11"
+log = "0.4"
+lazy_static = "1.5"
 
 clap = { version = "4", features = ["derive"] }
 

@@ -1,7 +1,7 @@
 // Copyright 2024 Nelson Dominguez
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-pub mod new;
+pub mod new_project;
 
 use clap::{Parser, Subcommand};
 
@@ -19,6 +19,7 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Command {
+    /// Scaffolds a new Rust project.
     #[command(name = "new")]
-    New(new::NewArgs),
+    NewProject(new_project::NewProjectArgs),
 }
