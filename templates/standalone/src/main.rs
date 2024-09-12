@@ -7,7 +7,7 @@ use {{crate_name}}::Result;
 async fn main() -> Result<()> {
     env_logger::init();
 
-    let socket_addr = rustx::env::get_socket_addrs()?;
+    let socket_addr = {{crate_name}}::env::get_socket_addrs()?;
 
     HttpServer::new(move || {
         App::new()
