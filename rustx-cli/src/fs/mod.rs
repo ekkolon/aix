@@ -5,6 +5,23 @@ use async_recursion::async_recursion;
 use std::path::Path;
 use tokio::fs;
 
+/// Check whether a directory at specified path is empty.
+///
+/// In the context of this function, a directory is considered empty if
+/// - it does not exist
+/// - it exists but has 0 entries
+///
+/// # Errors
+/// - Propagates I/O errors from reading the directory.
+pub async fn is_dir_empty<P: AsRef<Path>>(path: P) -> crate::Result<bool> {
+    if !path.as_ref().exists() {
+        return Ok(true);
+    }
+
+    let mut entries = fs::read_dir(path).await?;
+    Ok(entries.next_entry().await?.is_none())
+}
+
 /// Recreates a directory at the specified `path`, ensuring it is empty.
 ///
 /// # Warnings
@@ -33,7 +50,7 @@ pub async fn recreate_dir<P: AsRef<Path>>(path: P) -> crate::Result<()> {
 }
 
 /// Recursively copies the contents of a source directory (`src`) to a destination directory (`dest`).
-/// 
+///
 /// # Arguments
 /// - `src`: The path of the source directory to copy from.
 /// - `dest`: The path of the destination directory to copy to.
@@ -49,18 +66,12 @@ where
     let dst_path = dest.as_ref();
     let src_path = src.as_ref();
 
-    // Create the destination directory if it doesn't exist
     fs::create_dir_all(dst_path).await?;
 
-    // Read the source directory entries
     let mut entries = fs::read_dir(src_path).await?;
-
-    // Process each entry
     while let Some(entry) = entries.next_entry().await? {
         let file_type = entry.file_type().await?;
         let entry_dst = dst_path.join(entry.file_name());
-
-        // Recursively copy directories or copy files
         if file_type.is_dir() {
             copy_dir_all(entry.path(), entry_dst).await?;
         } else {
