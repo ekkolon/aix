@@ -1,6 +1,6 @@
 # Rustx
 
-A CLI tool to quickly scaffold REST API projects based on the [Actix](https://actix.rs/) framework.
+Rustx provides a CLI tool to quickly scaffold REST API projects based on the [Actix](https://actix.rs/) framework.
 
 Projects generated with `rustx` come with reasonable defaults and can be extended with [_extras_](#extras) to further enhance your development activities.
 
