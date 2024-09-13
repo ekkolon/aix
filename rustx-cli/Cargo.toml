@@ -14,31 +14,30 @@ keywords = ["actix-web", "starter-template", "cli"]
 name = "rustx"
 path = "src/bin/rustx.rs"
 
+
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 thiserror.workspace = true
 dirs = "5.0"
-tempdir = "0.3"
 async-recursion = "1"
-tokio = { version = "1.40.0", features = [
-    "fs",
-    "macros",
-    "rt-multi-thread",
-    "io-std",
-    "io-util",
-] }
 env_logger = "0.11"
 log = "0.4"
-lazy_static = "1.5"
-rayon = "1.10"
 regex = "1"
 
-clap = { version = "4", features = ["derive", "cargo"] }
+[dependencies.tokio]
+version = "1.40"
+features = ["fs", "macros", "rt-multi-thread", "io-std", "io-util"]
+
+[dependencies.clap]
+version = "4"
+features = ["derive", "cargo"]
+
 
 [dev-dependencies]
 anyhow = "1"
 tempfile = "3"
+
 
 [lints.rust]
 unsafe_code = "forbid"
