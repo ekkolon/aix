@@ -1,6 +1,4 @@
-use crate::project::extras;
-use crate::project::extras::ci::CI;
-use crate::project::extras::ProjectExtra;
+use crate::project::extras::{self, ci::CI, ProjectExtra};
 use crate::{config::Config, utils::interpolation::replace_template_vars_all};
 
 use serde_json::json;
@@ -66,23 +64,31 @@ impl ProjectBuilder {
     /// Finalizes the construction of the `Project` instance, sets up project templates,
     /// and applies additional configurations (e.g ci, docker).
     pub async fn build(self) -> crate::Result<Project> {
-        let project_typ = self.project.typ();
+        let name = self.project.name();
+        let typ = self.project.typ();
+        let src_root = self.project.src_root();
 
-        let template_dir = get_template_dir(&self.app_handle, project_typ);
+        // Exit early if the src_root is not an empty directory.
+        if !crate::fs::is_dir_empty(src_root).await? {
+            return Err(crate::Error::DirectoryNotEmpty {
+                path: src_root.into(),
+            });
+        }
+
+        let template_dir = get_template_dir(&self.app_handle, typ);
+
         if !fs::try_exists(&template_dir).await? {
             // Pull project templates from repository.
             self.app_handle.sync_store().await?;
         }
 
         // Copy templates for this project type to target src dir.
-        let src_root = &self.project.src_root();
-        let project_name = &self.project.name();
         crate::fs::copy_dir_all(&template_dir, src_root).await?;
 
-        if *project_typ == ProjectType::Workspace {
+        if *typ == ProjectType::Workspace {
             // The workspace template uses the standalone template to scaffold
             // the initial crate member.
-            let crate_path = src_root.join(project_name);
+            let crate_path = src_root.join(name);
             let template_dir = get_template_dir(&self.app_handle, &ProjectType::Standalone);
             crate::fs::copy_dir_all(&template_dir, crate_path).await?;
         }
