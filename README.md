@@ -1,8 +1,28 @@
 # Rustx
 
+> This project is still in the experimental stage, and its functionality may change at any time without notice.
+
 Rustx provides a CLI tool to quickly scaffold REST API projects based on the [Actix](https://actix.rs/) framework.
 
 Projects generated with `rustx` come with reasonable defaults and can be extended with [_extras_](#extras) to further enhance your development activities.
+
+Projects generated with `rustx` come with reasonable defaults and can be extended with [_extras_](#extras) to further enhance your development activities.
+
+## Installation
+
+Rustx is published as both a binary and library crate on [crates.io](https://crates.io/rustx). For now, the rustx library is just published for completeness.
+
+**Install rustx binary**:
+
+```bash
+cargo install rustx
+```
+
+**Add rustx to a project**:
+
+```bash
+cargo add rustx
+```
 
 ## Usage
 
