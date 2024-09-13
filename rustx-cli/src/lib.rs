@@ -1,9 +1,14 @@
+// Copyright 2024 Nelson Dominguez
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 mod error;
-mod context;
-pub mod utils;
-pub mod fs_extra;
-mod git;
-pub mod project;
+mod handle;
+pub mod logger;
+mod project;
+mod utils;
+
 pub use error::*;
-pub use context::*;
-pub use utils::*;
+pub use project::*;
+pub use utils::git::GitRepository;
+pub(crate) mod fs;
+pub use handle::AppHandle;
