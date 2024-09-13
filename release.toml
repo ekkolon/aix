@@ -3,4 +3,6 @@ publish = false
 sign-tag = true
 sign-commit = true
 tag = true
+verify = true
 tag-message = "chore: release {{crate_name}} version {{version}}"
+pre-release-commit-message = "chore: release version {{version}}"
