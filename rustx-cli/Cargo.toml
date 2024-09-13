@@ -10,6 +10,9 @@ repository = "https://github.com/ekkolon/rustx"
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 keywords = ["actix-web", "starter-template", "cli"]
 
+[badges]
+maintenance = { status = "experimental" }
+
 [[bin]]
 name = "rustx"
 path = "src/bin/rustx.rs"
