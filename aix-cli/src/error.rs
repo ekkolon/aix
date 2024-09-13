@@ -22,7 +22,7 @@ pub enum Error {
     #[error("Invalid project CI provider {provider}")]
     InvalidProjectCiProvider { provider: String },
 
-    #[error("Failed to dermine rustx data directory")]
+    #[error("Failed to dermine aix data directory")]
     MissingLocalDataDir,
 
     // --- Externals

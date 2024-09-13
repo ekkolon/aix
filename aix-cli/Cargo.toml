@@ -1,12 +1,12 @@
 [package]
-name = "rustx"
+name = "aix"
 version = "0.1.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 description = "A command-line tool to quickly scaffold Rust + Actix projects with reasonable defaults"
 authors = ["Nelson Dominguez <ekkolon@proton.me>"]
-repository = "https://github.com/ekkolon/rustx"
+repository = "https://github.com/ekkolon/aix"
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 keywords = ["actix-web", "starter-template", "cli"]
 
@@ -14,8 +14,8 @@ keywords = ["actix-web", "starter-template", "cli"]
 maintenance = { status = "experimental" }
 
 [[bin]]
-name = "rustx"
-path = "src/bin/rustx.rs"
+name = "aix"
+path = "src/bin/aix.rs"
 
 
 [dependencies]

@@ -4,20 +4,20 @@
 mod new;
 use new as new_project;
 
+use aix::config::Config;
+use aix::git::GitRepository;
 use log::LevelFilter;
-use rustx::config::Config;
-use rustx::git::GitRepository;
 
 use clap::{crate_authors, Args, Parser, Subcommand};
 
 #[tokio::main]
-async fn main() -> rustx::Result<()> {
+async fn main() -> aix::Result<()> {
     let cli = Cli::parse();
 
     // Set up env_logger with the chosen log level
     let log_level = get_log_level_filter(cli.global_args.verbose);
     std::env::set_var("RUST_LOG", log_level.to_string());
-    rustx::log::init_logger(Some(log_level));
+    aix::log::init_logger(Some(log_level));
 
     let handle = get_app_handle()?;
 
@@ -54,12 +54,12 @@ pub struct GlobalArgs {
     pub verbose: u8,
 }
 
-fn get_app_handle() -> rustx::Result<Config> {
+fn get_app_handle() -> aix::Result<Config> {
     let app_name = std::env::current_exe()?;
     let app_name = app_name.file_name().unwrap().to_string_lossy();
 
     let git_repo = GitRepository {
-        url: "git@github.com:ekkolon/rustx.git".into(),
+        url: "git@github.com:ekkolon/aix.git".into(),
         directory: "templates".into(),
         branch: "main".into(),
     };

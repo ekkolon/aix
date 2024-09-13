@@ -3,11 +3,11 @@
 
 use std::{env::current_dir, path::PathBuf};
 
+use aix::config::Config;
+use aix::project::extras::ci::CI;
+use aix::project::{Project, ProjectBuilder, ProjectType};
 use clap::{value_parser, ArgAction, Args, Parser};
 use log::info;
-use rustx::config::Config;
-use rustx::project::extras::ci::CI;
-use rustx::project::{Project, ProjectBuilder, ProjectType};
 use serde::{Deserialize, Serialize};
 use tokio::fs;
 
@@ -43,7 +43,7 @@ use tokio::fs;
 /// };
 /// run(&app_handle, &args).await?;
 /// ```
-pub async fn run(app_handle: &Config, args: &NewProjectArgs) -> rustx::Result<()> {
+pub async fn run(app_handle: &Config, args: &NewProjectArgs) -> aix::Result<()> {
     let NewProjectArgs {
         name,
         root_dir,
@@ -158,7 +158,7 @@ fn print_new_project_files(project: &Project, file_list: &[String]) {
     }
 }
 
-async fn build_project_out_dir(name: &str, root_dir: &Option<PathBuf>) -> rustx::Result<PathBuf> {
+async fn build_project_out_dir(name: &str, root_dir: &Option<PathBuf>) -> aix::Result<PathBuf> {
     let out_dir = match root_dir {
         Some(dir) => dir.to_path_buf(),
         None => current_dir()?.join(name),
@@ -169,7 +169,7 @@ async fn build_project_out_dir(name: &str, root_dir: &Option<PathBuf>) -> rustx:
     }
 
     if !out_dir.is_dir() {
-        return Err(rustx::Error::NotADirectory { path: out_dir });
+        return Err(aix::Error::NotADirectory { path: out_dir });
     }
 
     Ok(out_dir)

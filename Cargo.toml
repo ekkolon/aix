@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["rustx-cli",]
+members = ["aix-cli"]
 
 [workspace.dependencies]
 # -- Error 

@@ -1,6 +1,6 @@
 # Security Policy
 
-Thank you for using or contributing to **rustx**. Ensuring the security of our project and its users is a top priority.
+Thank you for using or contributing to **aix**. Ensuring the security of our project and its users is a top priority.
 
 Please review the following guidelines for reporting security issues.
 
@@ -22,12 +22,12 @@ Security updates are prioritized for the latest release. It's essential to keep 
 
 ## Scope
 
-This security policy applies to the "rustx" project. Security issues in our dependencies or related projects should be reported to their maintainers.
+This security policy applies to the "aix" project. Security issues in our dependencies or related projects should be reported to their maintainers.
 
 ## Contact
 
 If you have any questions or need to contact us for reasons other than security, please send an email to [ekkolon@proton.me](mailto:ekkolon@proton.me).
 
-We appreciate your cooperation in helping keep **rustx** secure for everyone. 
+We appreciate your cooperation in helping keep **aix** secure for everyone. 
 
 Thank you for your support and contributions!
