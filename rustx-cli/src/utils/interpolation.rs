@@ -25,13 +25,6 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 /// # Errors
 /// - Returns errors from JSON serialization/deserialization if the `data` cannot be converted to a JSON map.
 /// - Propagates errors from the recursive file processing function or I/O operations.
-///
-/// # Example
-/// ```rust
-/// let data = HashMap::from([("title".to_string(), "My Title".to_string())]);
-/// let processed_files = replace_template_vars_all("templates_dir", vec![], data).await?;
-/// ```
-
 pub async fn replace_template_vars_all<T, D>(
     src: T,
     exclude: Vec<String>,
@@ -74,15 +67,6 @@ type WalkDirResult = Pin<Box<dyn Future<Output = crate::Result<Vec<String>>> + S
 /// # Errors
 /// - Returns I/O errors encountered while reading directories or processing files.
 /// - Returns errors from the `replace_template_vars` function if the variable replacement fails.
-///
-/// # Example
-/// ```rust
-/// let processed_files = replace_template_vars_all_recursive(
-///     PathBuf::from("my_dir"),
-///     vec!["skip_this_file.txt".to_string(), "ignore_folder".to_string()],
-///     json_map,
-/// ).await?;
-/// ```
 fn replace_template_vars_all_recursive(
     dir: PathBuf,
     exclude: Vec<String>,              // Use owned data
@@ -135,12 +119,6 @@ fn replace_template_vars_all_recursive(
 /// # Errors
 /// - Returns I/O errors if reading from or writing to the file fails.
 /// - Propagates any error from the `replace_template_variables` function.
-///
-/// # Example
-/// ```rust
-/// let json_map = HashMap::from([("name".to_string(), "Alice".to_string())]);
-/// replace_template_vars(Path::new("file.txt"), &json_map).await?;
-/// ```
 async fn replace_template_vars(
     path: &Path,
     json_map: &HashMap<String, String>,
@@ -170,14 +148,6 @@ async fn replace_template_vars(
 /// # Arguments
 /// - `content`: The input string that may contain template variables.
 /// - `json_map`: A map where keys are template variable names and values are their replacements.
-///
-/// # Example
-/// ```rust
-/// let content = "Hello, {{ name }}!";
-/// let json_map = HashMap::from([("name".to_string(), "Alice".to_string())]);
-/// let result = replace_template_variables(&content, &json_map);
-/// assert_eq!(result, "Hello, Alice!");
-/// ```
 pub fn interpolate_content(content: &str, json_map: &HashMap<String, String>) -> String {
     // Regex to match {{ var }} with optional spaces inside the curly braces
     let re = Regex::new(r"\{\{\s*(\w+)\s*\}\}").unwrap();

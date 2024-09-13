@@ -14,12 +14,6 @@ use crate::{Config, Project};
 ///
 /// - `Ok(())` if the setup completes successfully.
 /// - `Err` if an error occurs during setup, such as file copy failures.
-///
-/// # Example
-///
-/// ```no_run
-/// setup_docker(&app_handle, &project).await?;
-/// ```
 pub async fn setup_docker(app_handle: &Config, project: &Project) -> crate::Result<()> {
     let docker_templates_dir = app_handle.templates_dir().join("extras").join("docker");
 

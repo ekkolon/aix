@@ -40,11 +40,6 @@ pub async fn recreate_dir<P: AsRef<Path>>(path: P) -> crate::Result<()> {
 ///
 /// # Errors
 /// - Propagates any I/O errors encountered while reading the source directory or copying files.
-///
-/// # Example
-/// ```rust
-/// copy_dir_all("src_folder", "dest_folder").await?;
-/// ```
 #[async_recursion]
 pub async fn copy_dir_all<S, D>(src: S, dest: D) -> crate::Result<()>
 where
@@ -84,11 +79,6 @@ where
 ///
 /// # Errors
 /// - Propagates any I/O errors encountered during file or directory removal.
-///
-/// # Example
-/// ```no_run
-/// remove_files_except("target_dir", &["keep_me.txt", "important_dir"]).await?;
-/// ```
 pub async fn remove_files_except<D>(dir: D, keep_paths: &[&str]) -> crate::Result<()>
 where
     D: AsRef<Path>,

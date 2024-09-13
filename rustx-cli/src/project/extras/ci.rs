@@ -50,12 +50,6 @@ impl FromStr for CI {
 ///
 /// - `Ok(())` if the setup completes successfully.
 /// - `Err` if an error occurs during setup, such as file copy failures.
-///
-/// # Example
-///
-/// ```no_run
-/// setup_ci(&app_handle, &project, &CI::Github).await?;
-/// ```
 pub async fn setup_ci(app_handle: &Config, project: &Project, ci: &CI) -> crate::Result<()> {
     let docker_templates_dir = app_handle
         .templates_dir()
