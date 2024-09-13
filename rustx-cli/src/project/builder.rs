@@ -1,13 +1,13 @@
+use crate::project::extras;
+use crate::project::extras::ci::CI;
 use crate::project::extras::ProjectExtra;
 use crate::{config::Config, utils::interpolation::replace_template_vars_all};
+
 use serde_json::json;
 use std::fmt::Display;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 use tokio::fs;
-
-use crate::project::extras;
-use crate::project::extras::ci::CI;
 
 /// A builder for constructing `Project` instances.
 #[derive(Clone)]

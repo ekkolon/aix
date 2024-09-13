@@ -4,8 +4,10 @@
 use std::{env::current_dir, path::PathBuf};
 
 use clap::{value_parser, ArgAction, Args, Parser};
-use log::{debug, info};
-use rustx::{extras::ci::CI, Config, Project, ProjectBuilder, ProjectType};
+use log::info;
+use rustx::config::Config;
+use rustx::project::extras::ci::CI;
+use rustx::project::{Project, ProjectBuilder, ProjectType};
 use serde::{Deserialize, Serialize};
 use tokio::fs;
 
@@ -63,13 +65,6 @@ pub async fn run(app_handle: &Config, args: &NewProjectArgs) -> rustx::Result<()
         .await?;
 
     let project_files = project.compile().await?;
-
-    debug!(
-        "Copied {} project templates to {}",
-        project.typ(),
-        project.src_root().display()
-    );
-
     print_new_project_files(&project, &project_files);
 
     Ok(())
@@ -122,7 +117,6 @@ pub struct ProjectKind {
         long,
         action(ArgAction::SetTrue),
         default_value_t = false,
-        value_name = "KIND",
         verbatim_doc_comment
     )]
     pub standalone: bool,
@@ -134,7 +128,6 @@ pub struct ProjectKind {
         long,
         action(ArgAction::SetTrue),
         default_value_t = false,
-        value_name = "KIND",
         verbatim_doc_comment
     )]
     pub workspace: bool,
@@ -153,16 +146,14 @@ impl From<&ProjectKind> for ProjectType {
 fn print_new_project_files(project: &Project, file_list: &[String]) {
     let file_list_formatted = file_list
         .iter()
-        .rev()
         .map(|path| format!("\x1b[38;2;46;111;64mADD\x1b[0m {path}"))
         .reduce(|prev: String, curr: String| format!("{prev}\n   {curr}"));
 
     if let Some(files) = file_list_formatted {
         info!(
-            "Generated {} project {} at {}/ \n   {files}",
-            project.name(),
+            "Successfully created new {} project {}\n   {files}",
             project.typ().to_string(),
-            project.src_root().display()
+            project.name()
         );
     }
 }

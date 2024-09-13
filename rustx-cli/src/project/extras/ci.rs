@@ -4,7 +4,7 @@
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, str::FromStr};
 
-use crate::{Config, Project};
+use crate::{config::Config, project::Project};
 
 /// A Continuous Integration (CI) provider.
 ///

@@ -5,7 +5,8 @@ mod new;
 use new as new_project;
 
 use log::LevelFilter;
-use rustx::{Config, GitRepository};
+use rustx::config::Config;
+use rustx::git::GitRepository;
 
 use clap::{crate_authors, Args, Parser, Subcommand};
 
@@ -16,7 +17,7 @@ async fn main() -> rustx::Result<()> {
     // Set up env_logger with the chosen log level
     let log_level = get_log_level_filter(cli.global_args.verbose);
     std::env::set_var("RUST_LOG", log_level.to_string());
-    rustx::logger::init_logger(Some(log_level));
+    rustx::log::init_logger(Some(log_level));
 
     let handle = get_app_handle()?;
 

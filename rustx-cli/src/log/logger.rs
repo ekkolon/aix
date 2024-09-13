@@ -29,10 +29,10 @@ pub fn init_logger(level: Option<LevelFilter>) {
 
             writeln!(
                 buf,
-                "{} {}{}{reset} {}{reset}",
-                current_exe,   // Prepend BIN_NAME
+                "{}{}{reset} {} {}{reset}",
                 level_color,   // Color based on log level
                 level_circle,  // Colored circle based on log level
+                current_exe,   // Prepend BIN_NAME
                 record.args(), // Log message
                 reset = reset  // Reset ANSI codes
             )

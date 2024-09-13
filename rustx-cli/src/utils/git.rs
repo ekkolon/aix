@@ -20,7 +20,7 @@ pub struct GitRepository {
 }
 
 /// Checks if Git is installed on the system.
-pub fn is_git_installed() -> Result<bool> {
+pub(crate) fn is_git_installed() -> Result<bool> {
     let child = Command::new("git")
         .arg("--version")
         .stdout(Stdio::null())
@@ -36,7 +36,7 @@ pub fn is_git_installed() -> Result<bool> {
 }
 
 /// Clones a Git repository to a specified destination directory.
-pub fn clone<P, D>(current_dir: P, origin: &str, destination: Option<D>) -> Result<()>
+pub(crate) fn clone<P, D>(current_dir: P, origin: &str, destination: Option<D>) -> Result<()>
 where
     P: AsRef<Path>,
     D: AsRef<str>,
@@ -61,7 +61,7 @@ where
 }
 
 /// Initializes sparse checkout in the current Git repository using the cone mode.
-pub fn sparse_checkout_init_cone<P: AsRef<Path>>(current_dir: P) -> Result<()> {
+pub(crate) fn sparse_checkout_init_cone<P: AsRef<Path>>(current_dir: P) -> Result<()> {
     Command::new("git")
         .current_dir(current_dir)
         .arg("sparse-checkout")
@@ -76,7 +76,7 @@ pub fn sparse_checkout_init_cone<P: AsRef<Path>>(current_dir: P) -> Result<()> {
 }
 
 /// Configures the sparse checkout to include a specific path in the Git repository.
-pub fn sparse_checkout_set_path<P: AsRef<Path>>(current_dir: P, path: &str) -> Result<()> {
+pub(crate) fn sparse_checkout_set_path<P: AsRef<Path>>(current_dir: P, path: &str) -> Result<()> {
     Command::new("git")
         .current_dir(current_dir)
         .arg("sparse-checkout")

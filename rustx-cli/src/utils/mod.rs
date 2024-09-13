@@ -3,4 +3,3 @@
 
 pub mod git;
 pub mod interpolation;
-pub mod logger;

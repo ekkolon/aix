@@ -1,7 +1,7 @@
 // Copyright 2024 Nelson Dominguez
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-use crate::{Config, Project};
+use crate::{config::Config, project::Project};
 
 /// Adds Docker configuration to a project.
 ///
