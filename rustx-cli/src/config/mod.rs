@@ -6,13 +6,16 @@ use std::path::{Path, PathBuf};
 use log::debug;
 use tokio::fs;
 
-use crate::{utils::git::{self, GitRepository}, Error, Result};
+use crate::{
+    utils::git::{self, GitRepository},
+    Error, Result,
+};
 
 pub const RELATIVE_TEMPLATES_DIR: &str = "templates";
 pub const RELATIVE_TEMP_DIR: &str = ".tmp";
 
 #[derive(Clone)]
-pub struct AppHandle {
+pub struct Config {
     name: String,
     local_data_dir: PathBuf,
     templates_dir: PathBuf,
@@ -20,7 +23,7 @@ pub struct AppHandle {
     git_repository: GitRepository,
 }
 
-impl AppHandle {
+impl Config {
     pub fn new(app_name: &str, git_repository: GitRepository) -> crate::Result<Self> {
         let app_local_data_dir = dirs::data_local_dir()
             .ok_or(crate::Error::MissingLocalDataDir)?

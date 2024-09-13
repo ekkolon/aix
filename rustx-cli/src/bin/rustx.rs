@@ -5,7 +5,7 @@ mod new;
 use new as new_project;
 
 use log::LevelFilter;
-use rustx::{AppHandle, GitRepository};
+use rustx::{Config, GitRepository};
 
 use clap::{crate_authors, Args, Parser, Subcommand};
 
@@ -53,7 +53,7 @@ pub struct GlobalArgs {
     pub verbose: u8,
 }
 
-fn get_app_handle() -> rustx::Result<AppHandle> {
+fn get_app_handle() -> rustx::Result<Config> {
     let app_name = std::env::current_exe()?;
     let app_name = app_name.file_name().unwrap().to_string_lossy();
 
@@ -63,15 +63,15 @@ fn get_app_handle() -> rustx::Result<AppHandle> {
         branch: "main".into(),
     };
 
-    let app_handle = AppHandle::new(&app_name, git_repo)?;
+    let app_handle = Config::new(&app_name, git_repo)?;
     Ok(app_handle)
 }
 
 fn get_log_level_filter(verbosity: u8) -> LevelFilter {
     // Map verbosity level to corresponding log level
     match verbosity {
-        0 => LevelFilter::Info,      // Default level (no -v passed)
-        1 => LevelFilter::Debug,     // -v or more
+        0 => LevelFilter::Info,  // Default level (no -v passed)
+        1 => LevelFilter::Debug, // -v or more
         _ => LevelFilter::Trace, // -vv or more
     }
 }

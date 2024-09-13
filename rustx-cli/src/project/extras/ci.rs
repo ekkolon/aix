@@ -4,7 +4,7 @@
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, str::FromStr};
 
-use crate::{AppHandle, Project};
+use crate::{Config, Project};
 
 /// A Continuous Integration (CI) provider.
 ///
@@ -56,7 +56,7 @@ impl FromStr for CI {
 /// ```no_run
 /// setup_ci(&app_handle, &project, &CI::Github).await?;
 /// ```
-pub async fn setup_ci(app_handle: &AppHandle, project: &Project, ci: &CI) -> crate::Result<()> {
+pub async fn setup_ci(app_handle: &Config, project: &Project, ci: &CI) -> crate::Result<()> {
     let docker_templates_dir = app_handle
         .templates_dir()
         .join("extras")

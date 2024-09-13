@@ -5,7 +5,7 @@ use std::{env::current_dir, path::PathBuf};
 
 use clap::{value_parser, ArgAction, Args, Parser};
 use log::{debug, info};
-use rustx::{extras::ci::CI, AppHandle, Project, ProjectBuilder, ProjectType};
+use rustx::{extras::ci::CI, Config, Project, ProjectBuilder, ProjectType};
 use serde::{Deserialize, Serialize};
 use tokio::fs;
 
@@ -41,7 +41,7 @@ use tokio::fs;
 /// };
 /// run(&app_handle, &args).await?;
 /// ```
-pub async fn run(app_handle: &AppHandle, args: &NewProjectArgs) -> rustx::Result<()> {
+pub async fn run(app_handle: &Config, args: &NewProjectArgs) -> rustx::Result<()> {
     let NewProjectArgs {
         name,
         root_dir,
@@ -151,19 +151,20 @@ impl From<&ProjectKind> for ProjectType {
 }
 
 fn print_new_project_files(project: &Project, file_list: &[String]) {
-    let file_list_formatted: String = file_list
+    let file_list_formatted = file_list
         .iter()
         .rev()
         .map(|path| format!("\x1b[38;2;46;111;64mADD\x1b[0m {path}"))
-        .reduce(|prev: String, curr: String| format!("{prev}\n   {curr}"))
-        .unwrap();
+        .reduce(|prev: String, curr: String| format!("{prev}\n   {curr}"));
 
-    info!(
-        "Generated {} project {} at {}/ \n   {file_list_formatted}",
-        project.name(),
-        project.typ().to_string(),
-        project.src_root().display()
-    );
+    if let Some(files) = file_list_formatted {
+        info!(
+            "Generated {} project {} at {}/ \n   {files}",
+            project.name(),
+            project.typ().to_string(),
+            project.src_root().display()
+        );
+    }
 }
 
 async fn build_project_out_dir(name: &str, root_dir: &Option<PathBuf>) -> rustx::Result<PathBuf> {

@@ -7,12 +7,6 @@ use tokio::fs;
 
 /// Recreates a directory at the specified `path`, ensuring it is empty.
 ///
-/// # Behavior
-/// - If the directory at `path` already exists, it will be deleted (along with all of its contents)
-///   and then recreated.
-/// - If `path` exists but is not a directory, an error is returned.
-/// - If the directory does not exist, it will be created.
-///
 /// # Warnings
 /// **Be careful:** This function will remove **all** contents in the specified directory if it exists.
 ///
@@ -39,11 +33,7 @@ pub async fn recreate_dir<P: AsRef<Path>>(path: P) -> crate::Result<()> {
 }
 
 /// Recursively copies the contents of a source directory (`src`) to a destination directory (`dest`).
-///
-/// # Behavior
-/// - If the destination directory does not exist, it will be created.
-/// - The function will recursively copy all files and subdirectories from `src` to `dest`.
-///
+/// 
 /// # Arguments
 /// - `src`: The path of the source directory to copy from.
 /// - `dest`: The path of the destination directory to copy to.

@@ -1,5 +1,5 @@
 use crate::project::extras::ProjectExtra;
-use crate::{handle::AppHandle, utils::interpolation::replace_template_vars_all};
+use crate::{config::Config, utils::interpolation::replace_template_vars_all};
 use serde_json::json;
 use std::fmt::Display;
 use std::path::{Path, PathBuf};
@@ -12,13 +12,13 @@ use crate::project::extras::ci::CI;
 /// A builder for constructing `Project` instances.
 #[derive(Clone)]
 pub struct ProjectBuilder {
-    app_handle: AppHandle,
+    app_handle: Config,
     project: Project,
 }
 
 impl ProjectBuilder {
     /// Creates a new `ProjectBuilder` with a default `Project` instance.
-    pub fn new(app_handle: AppHandle) -> Self {
+    pub fn new(app_handle: Config) -> Self {
         Self {
             app_handle,
             project: Project::default(),
@@ -229,7 +229,7 @@ impl Project {
 ///
 /// Returns a `PathBuf` representing the path to the directory containing templates for
 /// the specified project type.
-fn get_template_dir(app_handle: &AppHandle, project_type: &ProjectType) -> PathBuf {
+fn get_template_dir(app_handle: &Config, project_type: &ProjectType) -> PathBuf {
     app_handle
         .templates_dir()
         .to_path_buf()
